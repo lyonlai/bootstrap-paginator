@@ -160,12 +160,12 @@
         })
 
         /**
-         * Tests the functionality of _getValueFromOption. this function is how the program turn the function attribute into
+         * Tests the functionality of getValueFromOption. this function is how the program turn the function attribute into
          * value when deciding it.
          *
          *
          * */
-        module("_getValueFromOption functionality test",{
+        module("getValueFromOption functionality test",{
 
             setup: function(){
                 container.bootstrapPaginator('destroy');
@@ -192,13 +192,13 @@
          * Tests both a string parameter and a function parameter, string parameter should return the orignial string,
          * while function one must give the return value of that function.
          * */
-        test("test the functionality of the _getValueFromOption",function(){
+        test("test the functionality of the getValueFromOption",function(){
 
-            var result = container.bootstrapPaginator("_getValueFromOption","a")
+            var result = container.bootstrapPaginator("getValueFromOption","a")
 
             equal(result,"a","value from the option function is a");
 
-            var result = container.bootstrapPaginator("_getValueFromOption",function(a){
+            var result = container.bootstrapPaginator("getValueFromOption",function(a){
 
                 return a+1;
 
@@ -209,9 +209,9 @@
         })
 
         /**
-         * Tests the _buildPageItem function. the function builds individual page item by providing only the
+         * Tests the buildPageItem function. the function builds individual page item by providing only the
          * */
-        module("_buildPageItem functionality test",{
+        module("buildPageItem functionality test",{
 
             setup: function(){
                 container.bootstrapPaginator('destroy');
@@ -244,11 +244,11 @@
 
             var pages = container.bootstrapPaginator("getPages");
 
-            var first = container.bootstrapPaginator("_buildPageItem","first",pages.first),
-                prev = container.bootstrapPaginator("_buildPageItem","prev",pages.prev),
-                next = container.bootstrapPaginator("_buildPageItem","next",pages.next),
-                last = container.bootstrapPaginator("_buildPageItem","last",pages.last),
-                current = container.bootstrapPaginator("_buildPageItem","page",pages.current);
+            var first = container.bootstrapPaginator("buildPageItem","first",pages.first),
+                prev = container.bootstrapPaginator("buildPageItem","prev",pages.prev),
+                next = container.bootstrapPaginator("buildPageItem","next",pages.next),
+                last = container.bootstrapPaginator("buildPageItem","last",pages.last),
+                current = container.bootstrapPaginator("buildPageItem","page",pages.current);
 
             ok(first.is("li"),"check whether the wrapping element is a li");
 
