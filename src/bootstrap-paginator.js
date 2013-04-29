@@ -119,10 +119,11 @@
 
             this.currentPage = parseInt(page, 10);
 
-            this.$element.trigger("page-changed", [this.lastPage, this.currentPage]);
-
             this.render();
 
+            if (this.lastPage !== this.currentPage) {
+                this.$element.trigger("page-changed", [this.lastPage, this.currentPage]);
+            }
         },
 
         /**
@@ -221,6 +222,8 @@
 
             //fetch the container class and add them to the container
             var containerClass = this.getValueFromOption(this.options.containerClass, this.$element),
+                size = this.options.size || "normal",
+                alignment = this.options.alignment || "left",
                 pages = this.getPages(),
                 listContainer = $("<ul></ul>"),
                 listContainerClass =  this.getValueFromOption(this.options.listContainerClass, listContainer),
@@ -232,6 +235,36 @@
                 i = 0;
 
 
+            this.$element.prop("class", "");
+
+            this.$element.addClass("pagination");
+
+            switch (size.toLowerCase()) {
+            case "large":
+                this.$element.addClass("pagination-large");
+                break;
+            case "small":
+                this.$element.addClass("pagination-small");
+                break;
+            case "mini":
+                this.$element.addClass("pagination-mini");
+                break;
+            default:
+                break;
+            }
+
+            switch (alignment.toLowerCase()) {
+
+            case "center":
+                this.$element.addClass("pagination-centered");
+                break;
+            case "right":
+                this.$element.addClass("pagination-right");
+                break;
+            default:
+                break;
+
+            }
 
             this.$element.addClass(containerClass);
 
@@ -308,7 +341,7 @@
                 itemContent = $("<a></a>"),//creates the item content
                 text = "",
                 title = "",
-                itemContainerClass = this.getValueFromOption(this.options.itemContainerClass, type, page, this.currentPage),
+                itemContainerClass = this.options.itemContainerClass(type, page, this.currentPage),
                 itemContentClass = this.getValueFromOption(this.options.itemContentClass, type, page, this.currentPage),
                 tooltipOpts = null;
 
@@ -317,28 +350,28 @@
 
             case "first":
                 if (!this.getValueFromOption(this.options.shouldShowPage, type, page, this.currentPage)) { return; }
-                text = this.getValueFromOption(this.options.itemTexts, type, page, this.currentPage);
-                title = this.getValueFromOption(this.options.tooltipTitles, type, page, this.currentPage);
+                text = this.options.itemTexts(type, page, this.currentPage);
+                title = this.options.tooltipTitles(type, page, this.currentPage);
                 break;
             case "last":
                 if (!this.getValueFromOption(this.options.shouldShowPage, type, page, this.currentPage)) { return; }
-                text = this.getValueFromOption(this.options.itemTexts, type, page, this.currentPage);
-                title = this.getValueFromOption(this.options.tooltipTitles, type, page, this.currentPage);
+                text = this.options.itemTexts(type, page, this.currentPage);
+                title = this.options.tooltipTitles(type, page, this.currentPage);
                 break;
             case "prev":
                 if (!this.getValueFromOption(this.options.shouldShowPage, type, page, this.currentPage)) { return; }
-                text = this.getValueFromOption(this.options.itemTexts, type, page, this.currentPage);
-                title = this.getValueFromOption(this.options.tooltipTitles, type, page, this.currentPage);
+                text = this.options.itemTexts(type, page, this.currentPage);
+                title = this.options.tooltipTitles(type, page, this.currentPage);
                 break;
             case "next":
                 if (!this.getValueFromOption(this.options.shouldShowPage, type, page, this.currentPage)) { return; }
-                text = this.getValueFromOption(this.options.itemTexts, type, page, this.currentPage);
-                title = this.getValueFromOption(this.options.tooltipTitles, type, page, this.currentPage);
+                text = this.options.itemTexts(type, page, this.currentPage);
+                title = this.options.tooltipTitles(type, page, this.currentPage);
                 break;
             case "page":
                 if (!this.getValueFromOption(this.options.shouldShowPage, type, page, this.currentPage)) { return; }
-                text = this.getValueFromOption(this.options.itemTexts, type, page, this.currentPage);
-                title = this.getValueFromOption(this.options.tooltipTitles, type, page, this.currentPage);
+                text = this.options.itemTexts(type, page, this.currentPage);
+                title = this.options.tooltipTitles(type, page, this.currentPage);
                 break;
             }
 
@@ -476,7 +509,9 @@
     };
 
     $.fn.bootstrapPaginator.defaults = {
-        containerClass: "pagination",
+        containerClass: "",
+        size: "normal",
+        alignment: "left",
         listContainerClass: "",
         itemContainerClass: function (type, page, current) {
             return (page === current) ? "active" : "";
@@ -520,7 +555,7 @@
             case "last":
                 return "Go to last page";
             case "page":
-                return "Go to page " + page;
+                return (page === current) ? "Current page is " + page : "Go to page " + page;
             }
         },
         bootstrapTooltipOptions: {
