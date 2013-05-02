@@ -49,6 +49,10 @@
 
             this.$element = $(element);
 
+            this.currentPage = 1;
+
+            this.lastPage = 1;
+
             this.setOptions(options);
         },
 
@@ -58,9 +62,16 @@
          * @param options options to config the paginator
          * */
         setOptions: function (options) {
+
             this.options = $.extend({}, (this.options || $.fn.bootstrapPaginator.defaults), options);
-            this.currentPage = parseInt(this.options.currentPage, 10);   //setup the current page property
-            this.lastPage = parseInt(this.currentPage, 10);  //setup the lastPage property
+
+            if (options && typeof (options.currentPage)  !== 'undefined') {
+
+                this.currentPage = parseInt(this.options.currentPage, 10);
+
+                this.lastPage = parseInt(this.currentPage, 10);  //setup the lastPage property
+            }
+
             this.totalPages = parseInt(this.options.totalPages, 10);  //setup the total pages property.
             this.numberOfPages = parseInt(this.options.numberOfPages, 10); //setup the numberOfPages to be shown
 
@@ -445,6 +456,10 @@
 
             output.current = this.currentPage;//mark the current page.
 
+            output.total = totalPages;
+
+            output.numberOfPages = this.options.numberOfPages;
+
             return output;
 
         },
@@ -560,7 +575,7 @@
         },
         bootstrapTooltipOptions: {
             animation: true,
-            html: false,
+            html: true,
             placement: 'top',
             selector: false,
             title: "",
