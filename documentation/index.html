@@ -83,12 +83,12 @@
         <div class="bp-docs-example"><div id="bp-get-started-initialization"></div></div>
         <pre class="javascript">
             <code>
-                var options = {
-                    currentPage: 3,
-                    totalPages: 10
-                }
+        var options = {
+            currentPage: 3,
+            totalPages: 10
+        }
 
-                $('#bp-get-started-initialization').bootstrapPaginator(options);
+        $('#bp-get-started-initialization').bootstrapPaginator(options);
             </code>
         </pre>
     </div>
@@ -317,12 +317,12 @@
             <div class="bp-docs-example"><div id="bp-example-initialization"></div></div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10
-            }
+        var options = {
+            currentPage: 3,
+            totalPages: 10
+        }
 
-            $('#bp-example-initialization').bootstrapPaginator(options);
+        $('#bp-example-initialization').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -349,14 +349,14 @@
             </div>
             <pre class="javascript" id="bp-size-alignment-pre">
                 <code id="bp-size-alignment-code">
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                size:"normal",
-                alignment:"left"
-            }
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            size:"normal",
+            alignment:"left"
+        }
 
-            $('#bp-example-initialization').bootstrapPaginator(options);
+        $('#bp-example-initialization').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -368,26 +368,26 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                itemTexts: function (type, page, current) {
-                        switch (type) {
-                        case "first":
-                            return "First";
-                        case "prev":
-                            return "Previous";
-                        case "next":
-                            return "Next";
-                        case "last":
-                            return "Last";
-                        case "page":
-                            return "p"+page;
-                        }
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            itemTexts: function (type, page, current) {
+                    switch (type) {
+                    case "first":
+                        return "First";
+                    case "prev":
+                        return "Previous";
+                    case "next":
+                        return "Next";
+                    case "last":
+                        return "Last";
+                    case "page":
+                        return "p"+page;
                     }
                 }
+            }
 
-            $('#bp-example-page-item-text').bootstrapPaginator(options);
+        $('#bp-example-page-item-text').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -399,26 +399,26 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                tooltipTitles: function (type, page, current) {
-                        switch (type) {
-                        case "first":
-                            return "Tooltip for first page";
-                        case "prev":
-                            return "Tooltip for previous page";
-                        case "next":
-                            return "Tooltip for next page";
-                        case "last":
-                            return "Tooltip for last page";
-                        case "page":
-                            return "Tooltip for page " + page;
-                        }
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            tooltipTitles: function (type, page, current) {
+                    switch (type) {
+                    case "first":
+                        return "Tooltip for first page";
+                    case "prev":
+                        return "Tooltip for previous page";
+                    case "next":
+                        return "Tooltip for next page";
+                    case "last":
+                        return "Tooltip for last page";
+                    case "page":
+                        return "Tooltip for page " + page;
                     }
                 }
+            }
 
-            $('#bp-example-page-item-tooltip-text').bootstrapPaginator(options);
+        $('#bp-example-page-item-tooltip-text').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -430,13 +430,13 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                useBootstrapTooltip:true
-            }
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            useBootstrapTooltip:true
+        }
 
-            $('#bp-example-bp-example-page-item-use-bootstrap-tooltip').bootstrapPaginator(options);
+        $('#bp-example-bp-example-page-item-use-bootstrap-tooltip').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -450,31 +450,31 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                useBootstrapTooltip:true,
-                tooltipTitles: function (type, page, current) {
-                    switch (type) {
-                    case "first":
-                        return "Go To First Page &lt;i class='icon-fast-backward icon-white'&gt;&lt;/i&gt;";
-                    case "prev":
-                        return "Go To Previous Page &lt;i class='icon-backward icon-white'&gt;&lt;/i&gt;";
-                    case "next":
-                        return "Go To Next Page &lt;i class='icon-forward icon-white'&gt;&lt;/i&gt;";
-                    case "last":
-                        return "Go To Last Page &lt;i class='icon-fast-forward icon-white'&gt;&lt;/i&gt;";
-                    case "page":
-                        return "Go to page " + page + " &lt;i class='icon-file icon-white'&gt;&lt;/i&gt;";
-                    }
-                },
-                bootstrapTooltipOptions: {
-                    html: true,
-                    placement: 'bottom'
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            useBootstrapTooltip:true,
+            tooltipTitles: function (type, page, current) {
+                switch (type) {
+                case "first":
+                    return "Go To First Page &lt;i class='icon-fast-backward icon-white'&gt;&lt;/i&gt;";
+                case "prev":
+                    return "Go To Previous Page &lt;i class='icon-backward icon-white'&gt;&lt;/i&gt;";
+                case "next":
+                    return "Go To Next Page &lt;i class='icon-forward icon-white'&gt;&lt;/i&gt;";
+                case "last":
+                    return "Go To Last Page &lt;i class='icon-fast-forward icon-white'&gt;&lt;/i&gt;";
+                case "page":
+                    return "Go to page " + page + " &lt;i class='icon-file icon-white'&gt;&lt;/i&gt;";
                 }
+            },
+            bootstrapTooltipOptions: {
+                html: true,
+                placement: 'bottom'
             }
+        }
 
-            $('#bp-example-page-item-bootstrap-tooltip-configuration').bootstrapPaginator(options);
+        $('#bp-example-page-item-bootstrap-tooltip-configuration').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -486,15 +486,15 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                itemContainerClass: function (type, page, current) {
-                    return (page === current) ? "active" : "pointer-cursor";
-                }
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            itemContainerClass: function (type, page, current) {
+                return (page === current) ? "active" : "pointer-cursor";
             }
+        }
 
-            $('#bp-example-page-item-container-class').bootstrapPaginator(options);
+        $('#bp-example-page-item-container-class').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -506,13 +506,13 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 2,
-                totalPages: 10,
-                numberOfPages:3
-            }
+        var options = {
+            currentPage: 2,
+            totalPages: 10,
+            numberOfPages:3
+        }
 
-            $('#bp-example-number-of-pages').bootstrapPaginator(options);
+        $('#bp-example-number-of-pages').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -525,17 +525,17 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                pageUrl: function(type, page, current){
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            pageUrl: function(type, page, current){
 
-                    return "http://example.com/list/page/"+page;
+                return "http://example.com/list/page/"+page;
 
-                }
             }
+        }
 
-            $('#bp-example-page-urls').bootstrapPaginator(options);
+        $('#bp-example-page-urls').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -547,22 +547,22 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                shouldShowPage:function(type, page, current){
-                    switch(type)
-                    {
-                        case "first":
-                        case "last":
-                            return false;
-                        default:
-                            return true;
-                    }
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            shouldShowPage:function(type, page, current){
+                switch(type)
+                {
+                    case "first":
+                    case "last":
+                        return false;
+                    default:
+                        return true;
                 }
             }
+        }
 
-            $('#bp-example-presence-of-page').bootstrapPaginator(options);
+        $('#bp-example-presence-of-page').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -666,15 +666,15 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                onPageClicked: function(e,originalEvent,type,page){
-                    $('#page-clicked-alert-content').text("Page item clicked, type: "+type+" page: "+page);
-                }
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            onPageClicked: function(e,originalEvent,type,page){
+                $('#page-clicked-alert-content').text("Page item clicked, type: "+type+" page: "+page);
             }
+        }
 
-            $('#bp-example-page-clicked-event').bootstrapPaginator(options);
+        $('#bp-example-page-clicked-event').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
@@ -702,15 +702,15 @@
             </div>
             <pre class="javascript">
                 <code>
-            var options = {
-                currentPage: 3,
-                totalPages: 10,
-                onPageChanged: function(e,oldPage,newPage){
-                    $('#page-changed-alert-content').text("Current page changed, old: "+oldPage+" new: "+newPage);
-                }
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            onPageChanged: function(e,oldPage,newPage){
+                $('#page-changed-alert-content').text("Current page changed, old: "+oldPage+" new: "+newPage);
             }
+        }
 
-            $('#bp-example-page-changed-event').bootstrapPaginator(options);
+        $('#bp-example-page-changed-event').bootstrapPaginator(options);
                 </code>
             </pre>
         </div>
