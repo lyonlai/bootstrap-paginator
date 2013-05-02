@@ -13,7 +13,7 @@
 <div id="paginator-test"></div>
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
-<script src="../src/bootstrap-paginator.js"></script>
+<script src="../build/bootstrap-paginator.min.js"></script>
 <script src="../lib/qunit-1.11.0.js"></script>
 
 <script type="text/javascript">
@@ -1190,15 +1190,6 @@
 
             ok(container.hasClass("test"),"Container should have the class test")
 
-            options.containerClass = function(){
-
-                return "testF"
-
-            }
-
-            container.bootstrapPaginator(options);
-
-            ok(container.hasClass("test"),"Container should have the class testF")
 
 
         })
@@ -1258,13 +1249,6 @@
 
             };
 
-            options.itemContainerClass = "itemCT"
-
-            container.bootstrapPaginator(options);
-
-            var itemContainer = container.children().first().children().first();
-
-            ok(itemContainer.hasClass("itemCT"),"Item container should have the class itemCT")
 
             var typeAct = [],
                     pageAct = [],
@@ -1516,7 +1500,186 @@
 
             equal(currentPage, 3 ,"current page item page is 3")
         })
+
+        test("test size option", function(){
+
+            container.bootstrapPaginator("destroy");
+
+            options = {
+                currentPage: 3,
+                totalPages:11
+            }
+
+            container.bootstrapPaginator(options);
+
+            equal(container.hasClass("pagination"),true,"container must have class pagination")
+
+            equal(container.hasClass("pagination-mini"),false,"container must not have class pagination-mini")
+
+            equal(container.hasClass("pagination-small"),false,"container must not have class pagination-small")
+
+            equal(container.hasClass("pagination-large"),false,"container must not have class pagination-large")
+
+            container.bootstrapPaginator({
+                size:"mini"
+            })
+
+            equal(container.hasClass("pagination pagination-mini"),true,"container must have class pagination and pagination-mini when size is 'mini'")
+
+            equal(container.hasClass("pagination-small"),false,"container must have not class pagination-small when size is 'mini'")
+
+            equal(container.hasClass("pagination-large"),false,"container must have not class pagination-large when size is 'mini'")
+
+            container.bootstrapPaginator({
+                size:"small"
+            })
+
+            equal(container.hasClass("pagination pagination-small"),true,"container must have class pagination and pagination-small when size is 'small'")
+
+            equal(container.hasClass("pagination-mini"),false,"container must not have class pagination-mini when size is 'small'")
+
+            equal(container.hasClass("pagination-large"),false,"container must not have class pagination-large when size is 'small'")
+
+            container.bootstrapPaginator({
+                size:"large"
+            })
+
+            equal(container.hasClass("pagination pagination-large"),true,"container must have class pagination and pagination-large when size is 'large'")
+
+            equal(container.hasClass("pagination-mini"),false,"container must not have class pagination-mini when size is 'large'")
+
+            equal(container.hasClass("pagination-small"),false,"container must not have class pagination-small when size is 'large'")
+
+
+        })
+
+        test("test alignment option",function(){
+
+            container.bootstrapPaginator("destroy");
+
+            options = {
+                currentPage: 3,
+                totalPages:11
+            }
+
+            container.bootstrapPaginator(options);
+
+            equal(container.hasClass("pagination"),true,"container must have class pagination");
+
+            equal(container.hasClass("pagination-centered"),false,"container must not have class pagination-centered");
+
+            equal(container.hasClass("pagination-right"),false,"container must not have class pagination-right");
+
+            container.bootstrapPaginator({
+                alignment:'center'
+            })
+
+            equal(container.hasClass("pagination-centered"),true,"container must have class pagination-centered when alignment is 'center'");
+
+            equal(container.hasClass("pagination-right"),false,"container must not have class pagination-right when alignment is 'center'");
+
+            container.bootstrapPaginator({
+                alignment:'right'
+            })
+
+            equal(container.hasClass("pagination-right"),true,"container must have class pagination-right when alignment is 'right'");
+
+            equal(container.hasClass("pagination-centered"),false,"container must not have class pagination-centered  when alignment is 'right'");
+
+        })
+
+        module("Bad input testing",{
+
+            setup: function(){
+                container.bootstrapPaginator('destroy');
+            },
+            teardown: function(){
+                container.bootstrapPaginator('destroy');
+
+                options = {
+                    containerClass:"pagination"
+                    , currentPage:3
+                    , numberOfPages: 3
+                    , totalPages:11
+                    , pageUrl:function(type,page){
+                        return null;
+                    }
+                    , onPageClicked:null
+                    , onPageChanged:null
+
+
+                };
+
+                container.bootstrapPaginator(options);
+            }
+
+        })
+
+        test("bad input for setOptions, string value feed into numeric attribute,currentPage:'3',numberOfPages:'5',totalPages:'11'",function(){
+
+            options = {
+                 currentPage:"3"
+                , numberOfPages: "5"
+                , totalPages:"11"
+
+            };
+
+            container.bootstrapPaginator(options);
+
+            var pages = container.bootstrapPaginator("getPages");
+
+            equal(pages.first,1,"first page is 1")
+
+            equal(pages.prev,2,"previous page is 2")
+
+            equal(pages.next,4,"next page is 4")
+
+            equal(pages.last,11,"last page is 11")
+
+            equal(pages.current,3,"current page is 3");
+
+            equal(pages.total,11,"total pages is 11");
+
+            equal(pages.numberOfPages,5,"number of pages is 5");
+
+
+
+        })
+
+        test("bad input for show, string value '5' is feeded",function(){
+
+            container.bootstrapPaginator("destroy");
+
+            options = {
+                currentPage: 3,
+                numberOfPages: 5,
+                totalPages:11
+            }
+
+            container.bootstrapPaginator(options);
+
+            container.bootstrapPaginator('show',"5");
+
+            var pages = container.bootstrapPaginator("getPages");
+
+            equal(pages.first,1,"first page is 1")
+
+            equal(pages.prev,4,"previous page is 4")
+
+            equal(pages.next,6,"next page is 6")
+
+            equal(pages.last,11,"last page is 11")
+
+            equal(pages.current,5,"current page is 5");
+
+            equal(pages.total,11,"total pages is 11");
+
+            equal(pages.numberOfPages,5,"number of pages is 5");
+
+        })
     })
+
+
 
 
 </script>
