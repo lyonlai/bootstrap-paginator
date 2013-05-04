@@ -54,6 +54,8 @@
             this.lastPage = 1;
 
             this.setOptions(options);
+
+            this.initialized = true;
         },
 
         /**
@@ -67,9 +69,9 @@
 
             if (options && typeof (options.currentPage)  !== 'undefined') {
 
-                this.currentPage = parseInt(this.options.currentPage, 10);
-
                 this.lastPage = parseInt(this.currentPage, 10);  //setup the lastPage property
+
+                this.currentPage = parseInt(this.options.currentPage, 10);
             }
 
             this.totalPages = parseInt(this.options.totalPages, 10);  //setup the total pages property.
@@ -79,6 +81,10 @@
 
             //render the paginator
             this.render();
+
+            if (!this.initialized && this.lastPage !== this.currentPage) {
+                this.$element.trigger("page-changed", [this.lastPage, this.currentPage]);
+            }
 
         },
 
