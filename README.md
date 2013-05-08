@@ -2,7 +2,7 @@
 
 ---
 
-Bootstrap Paginator is a jQuery plugin that simplifies the rendering of Bootstrap Pagination component. It provides methods to automates the update of the pagination status and also some events to notify the status changes within the component. For documentation and examples, please visit [Bootstrap Paginator Website](http://bootstrappaginator.org/index.html "Click to visit Bootstrap Paginator"). 
+Bootstrap Paginator is a jQuery plugin that simplifies the rendering of Bootstrap Pagination component. It provides methods to automates the update of the pagination status and also some events to notify the status changes within the component. For documentation and examples, please visit [Bootstrap Paginator Website](http://bootstrappaginator.org/ "Click to visit Bootstrap Paginator"). 
 
 # Copyright and License
 Copyright 2013 Yun Lai
