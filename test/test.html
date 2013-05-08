@@ -1102,7 +1102,7 @@
         })
 
         /**
-         * When shows the page out of 1~totalPages, it will throw and exception with message "Current paeg out of range"
+         * When shows the page out of 1~totalPages, it will throw and exception with message "Page out of range"
          * */
         test("Page range test",function(){
 
@@ -1117,8 +1117,9 @@
                 , onPageClicked:null
                 , onPageChanged:function(e,oldPage,newPage){
 
-                    oldValue = oldPage,
-                            newValue = newPage;
+                    oldValue = oldPage;
+
+                    newValue = newPage;
 
                 }
 
@@ -1129,17 +1130,23 @@
 
             throws(function(){
                 container.bootstrapPaginator("show",-1);
-            },/range/,"Minus page out of range exception");
+            },/range/,"Page out of lower boundary exception when using show");
 
             throws(function(){
                 container.bootstrapPaginator("show",12);
-            },/range/,"Positive page out of range exception");
+            },/range/,"Page out of upper boundary exception when using show");
 
+            throws(function(){
+                container.bootstrapPaginator({currentPage:-2});
+            },/range/,"Page out of lower boundary exception when setting the current page through setOptions")
 
+            throws(function(){
+                container.bootstrapPaginator({currentPage:25});
+            },/range/,"Page out of upper boundary exception when setting the current page through setOptions")
         })
 
         /**
-         * Tests the exceptions when the page is out of range
+         * Tests the options when the page is out of range
          * */
         module("option testing",{
 
@@ -1168,6 +1175,11 @@
 
         })
 
+        /**
+         *
+         * Tests the containerClass option, check whether it's been set to the proper element.
+         *
+         * */
         test("test containerClass, string test and function that returns testF will be tested",function(){
 
             options = {
@@ -1194,6 +1206,11 @@
 
         })
 
+        /**
+         *
+         * Tests the listContainerClass, it just check whether it's been set to the proper element
+         *
+         * */
         test("test listContainerClass, string test and function that returns testF will be tested",function(){
 
             options = {
@@ -1233,6 +1250,11 @@
 
         })
 
+        /**
+         *
+         * Tests the itemContainerClass, checks whether it's been set to the right element
+         *
+         * */
         test("test itemContainerClass, string test and function that returns testF will be tested,currentPage = 3,totalPage  =11,",function(){
 
             options = {
@@ -1280,6 +1302,9 @@
 
         })
 
+        /**
+         * Tests whether the itemContentClass has been set to the right element.
+         * */
         test("test itemContentClass, string test and function that returns testF will be tested,currentPage = 3,totalPage  =11,",function(){
 
             options = {
@@ -1336,6 +1361,10 @@
         })
 
 
+        /**
+         *
+         * Tests the itemTexts, a special function is provided. Then each text of the rendered element is checked.
+         * */
         test("test itemTexts, string test and function that returns testF will be tested,currentPage = 3,totalPage  =11, text function returns type+' '+page+' '+current ",function(){
 
             options = {
@@ -1378,6 +1407,12 @@
 
         })
 
+
+        /**
+         *
+         * Tests the pageUrl option. the attribute href of the rendered element is check to see whether it matches the expected result.
+         *
+         * */
         test("test pageUrl, string test and function that returns testF will be tested,currentPage = 3,totalPage  =11, pageUrl function returns type+' '+page+' '+current ",function(){
 
             options = {
@@ -1415,6 +1450,9 @@
 
         })
 
+        /**
+         * Tooltip text option is check here by providing a special version of function to see whether it matches the expected result
+         * */
         test("test tooltipTitles, string test and function that returns testF will be tested,currentPage = 3,totalPage  =11, tooltipTitles function returns type+' '+page+' '+current ",function(){
 
 
