@@ -1,5 +1,5 @@
 /**
- * bootstrap-paginator.js v0.3
+ * bootstrap-paginator.js v0.5
  * --
  * Copyright 2013 Yun Lai <lyonlai1984@gmail.com>
  * --
@@ -69,9 +69,7 @@
 
             if (options && typeof (options.currentPage)  !== 'undefined') {
 
-                this.lastPage = parseInt(this.currentPage, 10);  //setup the lastPage property
-
-                this.currentPage = parseInt(this.options.currentPage, 10);
+                this.setCurrentPage(options.currentPage);
             }
 
             this.totalPages = parseInt(this.options.totalPages, 10);  //setup the total pages property.
@@ -132,9 +130,7 @@
          * */
         show: function (page) {
 
-            this.lastPage = this.currentPage;
-
-            this.currentPage = parseInt(page, 10);
+            this.setCurrentPage(page);
 
             this.render();
 
@@ -350,7 +346,7 @@
          * @param page page number
          * @param type type of the page, whether it is the first, prev, page, next, last
          *
-         * @return the constructed page element
+         * @return Object the constructed page element
          * */
         buildPageItem: function (type, page) {
 
@@ -412,6 +408,19 @@
 
         },
 
+        setCurrentPage: function (page) {
+            if (page > this.totalPages || page < 1) {// if the current page is out of range, throw exception.
+
+                throw "Page out of range";
+
+            }
+
+            this.lastPage = this.currentPage;
+
+            this.currentPage = parseInt(page, 10);
+
+        },
+
         /**
          * Gets an array that represents the current status of the page object. Numeric pages can be access via array mode. length attributes describes how many numeric pages are there. First, previous, next and last page can be accessed via attributes first, prev, next and last. Current attribute marks the current page within the pages.
          *
@@ -426,11 +435,6 @@
                 counter = 0;
 
             pageStart = pageStart < 1 ? 1 : pageStart;//check the range of the page start to see if its less than 1.
-
-            if (this.currentPage > totalPages || this.currentPage < 1) {// if the current page is out of range, throw exception.
-
-                throw "Current page out of range";
-            }
 
             for (i = pageStart, counter = 0; counter < this.numberOfPages && i <= totalPages; i = i + 1, counter = counter + 1) {//fill the pages
                 output.push(i);
@@ -473,6 +477,7 @@
         /**
          * Gets the value from the options, this is made to handle the situation where value is the return value of a function.
          *
+         * @return mixed value that depends on the type of parameters, if the given parameter is a function, then the evaluated result is returned. Otherwise the parameter itself will get returned.
          * */
         getValueFromOption: function (value) {
 
