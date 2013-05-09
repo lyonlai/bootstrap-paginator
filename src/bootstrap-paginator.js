@@ -118,7 +118,7 @@
 
             this.$element.off("page-changed");
 
-            this.$element.removeData('bootstrapPaginator');
+            $.removeData(this.$element, 'bootstrapPaginator');
 
             this.$element.empty();
 
@@ -510,7 +510,7 @@
         $(this).each(function (index, item) {
             var $this = $(item),
                 data = $this.data('bootstrapPaginator'),
-                options = typeof option === 'object' && option;
+                options = (typeof option !== 'object') ? null : option;
 
             if (!data) {
                 $this.data('bootstrapPaginator', (data = new BootstrapPaginator(this, options)));
