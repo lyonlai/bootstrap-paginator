@@ -1,1 +1,3 @@
 User-agent: *
+
+Sitemap: http://bootstrappaginator.org/sitemap_location.xml
