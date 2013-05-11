@@ -558,13 +558,13 @@
         itemTexts: function (type, page, current) {
             switch (type) {
             case "first":
-                return "<<";
+                return "&lt;&lt;";
             case "prev":
-                return "<";
+                return "&lt;";
             case "next":
-                return ">";
+                return "&gt;";
             case "last":
-                return ">>";
+                return "&gt;&gt;";
             case "page":
                 return page;
             }
