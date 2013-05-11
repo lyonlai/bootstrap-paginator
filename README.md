@@ -1,4 +1,4 @@
-# Bootstrap Paginator v0.5
+# Bootstrap Paginator v0.5.1
 
 ---
 

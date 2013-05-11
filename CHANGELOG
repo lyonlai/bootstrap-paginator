@@ -1,0 +1,9 @@
+Change log for Bootstrap Paginator
+----------------------------------
+
+Version 0.5.1   11/May/2013
+----------------------------------
+
+Update the item text in default function for page type first, prev, next, last to HTML Entities rather than plain text to make it work on IE series.
+
+
