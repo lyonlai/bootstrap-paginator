@@ -1,6 +1,11 @@
 Change log for Bootstrap Paginator
 ----------------------------------
 
+Version 0.6     13/Jun/2013
+----------------------------------
+
+Fix the bug that will cause page out of range when updating the current page together with the total pages.
+
 Version 0.5.1   11/May/2013
 ----------------------------------
 

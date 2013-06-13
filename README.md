@@ -1,10 +1,14 @@
-# Bootstrap Paginator v0.5.1
+# Bootstrap Paginator v0.6
 
 ---
 
-Bootstrap Paginator is a jQuery plugin that simplifies the rendering of Bootstrap Pagination component. It provides methods to automates the update of the pagination status and also some events to notify the status changes within the component. For documentation and examples, please visit [Bootstrap Paginator Website](http://bootstrappaginator.org/ "Click to visit Bootstrap Paginator"). 
+Bootstrap Paginator is a jQuery plugin that simplifies the rendering of Bootstrap Pagination component. It provides methods to automates the update of the pagination status and also some events to notify the status changes within the component. For documentation and examples, please visit [Bootstrap Paginator Website](http://bootstrappaginator.org/ "Click to visit Bootstrap Paginator").
 
 # Changes
+
+v 0.6
+
+* Fix the bug that will cause page out of range when updating the current page together with the total pages.
 
 v 0.5.1
 

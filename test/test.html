@@ -1175,6 +1175,28 @@
 
         })
 
+        test("test totalPages and current page",function(){
+
+            options = {
+                currentPage:2
+                , totalPages:2
+            };
+
+            container.bootstrapPaginator(options);
+
+            options.totalPages = 3;
+            options.currentPage  = 3;
+
+            container.bootstrapPaginator(options);
+
+            var pages = container.bootstrapPaginator("getPages");
+
+            equal(pages.total,3);
+
+            equal(pages.current,3);
+
+        })
+
         /**
          *
          * Tests the containerClass option, check whether it's been set to the proper element.
