@@ -67,13 +67,14 @@
 
             this.options = $.extend({}, (this.options || $.fn.bootstrapPaginator.defaults), options);
 
+            this.totalPages = parseInt(this.options.totalPages, 10);  //setup the total pages property.
+            this.numberOfPages = parseInt(this.options.numberOfPages, 10); //setup the numberOfPages to be shown
+
+            //move the set current page after the setting of total pages. otherwise it will cause out of page exception.
             if (options && typeof (options.currentPage)  !== 'undefined') {
 
                 this.setCurrentPage(options.currentPage);
             }
-
-            this.totalPages = parseInt(this.options.totalPages, 10);  //setup the total pages property.
-            this.numberOfPages = parseInt(this.options.numberOfPages, 10); //setup the numberOfPages to be shown
 
             this.listen();
 
