@@ -65,9 +65,9 @@
 
             equal(pages.current,1,"Current page of initial setup is 1.")
 
-            equal(pages.first,null,"No first page in the initial setup")
+            equal(pages.first,1,"No first page in the initial setup")
 
-            equal(pages.prev, null, "No previous page in the initial setup")
+            equal(pages.prev, 1, "No previous page in the initial setup")
 
             equal(pages.next, 2, "Next page of initial setup is 2")
 
@@ -152,9 +152,9 @@
 
             equal(pages.prev, 10, "Previous page is 10")
 
-            equal(pages.next, null, "No next page")
+            equal(pages.next, 11, "No next page")
 
-            equal(pages.last, null, "No last page")
+            equal(pages.last, 11, "No last page")
 
             equal(pages.length, 2, "Length of the pages is 2")
         })
@@ -1175,28 +1175,6 @@
 
         })
 
-        test("test totalPages and current page",function(){
-
-            options = {
-                currentPage:2
-                , totalPages:2
-            };
-
-            container.bootstrapPaginator(options);
-
-            options.totalPages = 3;
-            options.currentPage  = 3;
-
-            container.bootstrapPaginator(options);
-
-            var pages = container.bootstrapPaginator("getPages");
-
-            equal(pages.total,3);
-
-            equal(pages.current,3);
-
-        })
-
         /**
          *
          * Tests the containerClass option, check whether it's been set to the proper element.
@@ -1559,6 +1537,74 @@
             equal(pages[3], 2 ,"second page item page is 2")
 
             equal(currentPage, 3 ,"current page item page is 3")
+        })
+
+        test("test shouldShowPage on first page",function(){
+
+            container.bootstrapPaginator("destroy");
+
+            var types = [],
+                    pages = [],
+                    currentPage  = null
+
+            options = {
+                containerClass:"test"
+                , currentPage:1
+                , numberOfPages: 3
+                , totalPages:5
+                , onPageClicked:null
+                , onPageChanged:null
+                ,useBootstrapTooltip:false
+
+            };
+
+            container.bootstrapPaginator(options);
+
+            var itemList = container.children().first();
+
+            equal($(itemList.children()[0]).text(), 1 ," should be 7 types inside");
+
+            equal($(itemList.children()[2]).text(), 3 ," should be 7 types inside");
+
+            equal($(itemList.children()[3]).text(), ">" ," should be 7 types inside");
+
+            equal($(itemList.children()[4]).text(), ">>" ," should be 7 types inside");
+
+
+        })
+
+        test("test shouldShowPage on last page",function(){
+
+            container.bootstrapPaginator("destroy");
+
+            var types = [],
+                    pages = [],
+                    currentPage  = null
+
+            options = {
+                containerClass:"test"
+                , currentPage:5
+                , numberOfPages: 3
+                , totalPages:5
+                , onPageClicked:null
+                , onPageChanged:null
+                ,useBootstrapTooltip:false
+
+            };
+
+            container.bootstrapPaginator(options);
+
+            var itemList = container.children().first();
+
+            equal($(itemList.children()[0]).text(), "<<" ," should be 7 types inside");
+
+            equal($(itemList.children()[1]).text(), "<" ," should be 7 types inside");
+
+            equal($(itemList.children()[2]).text(), 4 ," should be 7 types inside");
+
+            equal($(itemList.children()[3]).text(), 5 ," should be 7 types inside");
+
+
         })
 
         test("test size option", function(){

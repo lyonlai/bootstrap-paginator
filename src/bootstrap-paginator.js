@@ -441,29 +441,21 @@
                 output.push(i);
             }
 
-            if (this.currentPage > 1) {//add the first when the current page leaves the 1st page.
-                output.first = 1;
-            } else {
-                output.first = null;
-            }
+            output.first = 1;//add the first when the current page leaves the 1st page.
 
             if (this.currentPage > 1) {// add the previous when the current page leaves the 1st page
                 output.prev = this.currentPage - 1;
             } else {
-                output.prev = null;
+                output.prev = 1;
             }
 
             if (this.currentPage < totalPages) {// add the next page when the current page doesn't reach the last page
                 output.next = this.currentPage + 1;
             } else {
-                output.next = null;
+                output.next = totalPages;
             }
 
-            if (this.currentPage < totalPages) {// add the last page when the current page doesn't reach the last page
-                output.last = totalPages;
-            } else {
-                output.last = null;
-            }
+            output.last = totalPages;// add the last page when the current page doesn't reach the last page
 
             output.current = this.currentPage;//mark the current page.
 
@@ -555,7 +547,31 @@
         onPageClicked: null,
         onPageChanged: null,
         useBootstrapTooltip: false,
-        shouldShowPage: true,
+        shouldShowPage: function (type, page, current) {
+
+            var result = true;
+
+            switch (type) {
+            case "first":
+                result = (current !== 1);
+                break;
+            case "prev":
+                result = (current !== 1);
+                break;
+            case "next":
+                result = (current !== this.totalPages);
+                break;
+            case "last":
+                result = (current !== this.totalPages);
+                break;
+            case "page":
+                result = true;
+                break;
+            }
+
+            return result;
+
+        },
         itemTexts: function (type, page, current) {
             switch (type) {
             case "first":
