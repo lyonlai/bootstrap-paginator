@@ -105,6 +105,7 @@
                 this.$element.on("page-changed", this.options.onPageChanged);
             }
 
+            this.$element.bind("page-clicked", this.onPageClicked);
         },
 
 
@@ -119,7 +120,7 @@
 
             this.$element.off("page-changed");
 
-            $.removeData(this.$element, 'bootstrapPaginator');
+            this.$element.removeData('bootstrapPaginator');
 
             this.$element.empty();
 
@@ -205,23 +206,29 @@
 
             this.$element.trigger("page-clicked", [event, type, page]);
 
-            //show the corresponding page and retrieve the newly built item related to the page clicked before for the event return
-            switch (type) {
+        },
 
+        onPageClicked: function (event, originalEvent, type, page) {
+
+            //show the corresponding page and retrieve the newly built item related to the page clicked before for the event return
+
+            var currentTarget = $(event.currentTarget);
+
+            switch (type) {
             case "first":
-                this.showFirst();
+                currentTarget.bootstrapPaginator("showFirst");
                 break;
             case "prev":
-                this.showPrevious();
+                currentTarget.bootstrapPaginator("showPrevious");
                 break;
             case "next":
-                this.showNext();
+                currentTarget.bootstrapPaginator("showNext");
                 break;
             case "last":
-                this.showLast();
+                currentTarget.bootstrapPaginator("showLast");
                 break;
             case "page":
-                this.show(page);
+                currentTarget.bootstrapPaginator("show",page);
                 break;
             }
 

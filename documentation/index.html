@@ -46,6 +46,7 @@
                         <li><a href="#get-pages">getPages Function</a></li>
                         <li><a href="#set-options">setOptions Function</a></li>
                         <li><a href="#page-clicked-event">Page Clicked Event</a></li>
+                        <li><a href="#page-clicked-event-stoppable">Stopping Page Change within Page Clicked Event</a></li>
                         <li><a href="#page-changed-event">Page Changed Event</a></li>
                     </ul>
                 </li>
@@ -201,7 +202,7 @@
                     <td class="bp-example-docs-option-attr">onPageClicked</td>
                     <td>function</td>
                     <td></td>
-                    <td>onPageClicked is the handler for the page-clicked event. The signature of the handler is function(<strong><i class="bp-example-docs-option-value">event</i></strong>, <strong><i class="bp-example-docs-option-value">originalEvent</i></strong>, <strong><i class="bp-example-docs-option-value">type</i></strong>,<strong><i class="bp-example-docs-option-value">page</i></strong>). See <a href="#page-clicked-event" title="Click to see the Page Clicked Event Example.">page-clicked Event example</a> for more detail.</td>
+                    <td>onPageClicked is the handler for the page-clicked event. The signature of the handler is function(<strong><i class="bp-example-docs-option-value">event</i></strong>, <strong><i class="bp-example-docs-option-value">originalEvent</i></strong>, <strong><i class="bp-example-docs-option-value">type</i></strong>,<strong><i class="bp-example-docs-option-value">page</i></strong>). If you would like the stop the page change from happening. Simply call event.stopImmediatePropagation() and do the page change yourself if applicable later. See <a href="#page-clicked-event" title="Click to see the Page Clicked Event Example.">page-clicked Event example</a> for more detail. Also the stoppable page change within page click event is demonstrated in See <a href="#page-clicked-event-stoppable" title="Click to see the Stopping Page Change within Page Clicked Event Example.">Stopping Page Change Within Page Clicked Event</a> for more detail.</td>
                 </tr>
                 <tr>
                     <td class="bp-example-docs-option-attr">onPageChanged</td>
@@ -684,6 +685,43 @@
                 </code>
             </pre>
         </div>
+        <div id="page-clicked-event-stoppable">
+            <h3>Stopping the page change within Page Clicked event</h3>
+            <p>If an ajax call is made and you want the page change happen after the content is loaded. You can simply stop the default page change event by calling event.stopImmediatePropagation() and do it later when the document is loaded.</p>
+            <div class="bp-docs-example">
+                <div id="bp-example-page-clicked-event-stoppable"></div>
+                <div id="page-clicked-event-alert-stoppable" class="alert alert-info"><span id="page-clicked-alert-content-stoppable">Click on the pages to trigger the page-clicked event.</span></div>
+            </div>
+            <pre class="javascript">
+                <code>
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            onPageClicked: function(e,originalEvent,type,page){
+
+                e.stopImmediatePropagation();
+
+                var currentTarget = $(e.currentTarget);
+
+                var pages = currentTarget.bootstrapPaginator("getPages");
+
+                $('#alert-content').text("Page item clicked, current page: "+pages.current);
+
+                setTimeout(function(){
+
+                    currentTarget.bootstrapPaginator("show",page);
+
+                    var pages = currentTarget.bootstrapPaginator("getPages");
+
+                    $('#alert-content').append("&lt;br/&gt;Page item click finished, current page: "+pages.current);
+
+                },3000);
+        }
+
+        $('#example').bootstrapPaginator(options);
+                </code>
+            </pre>
+        </div>
         <div id="page-changed-event">
             <h3>page-changed Event</h3>
             <p>The event page-changed will be triggered when the current page is changed to another one. This event only cares about the change between pages. So it's signature doesn't include the type parameter. Instead, the old and new value of the change are given. </p>
@@ -1024,6 +1062,36 @@
         $('#bp-example-page-clicked-event').bootstrapPaginator(options);
     }
 
+    function pageClickedEventStoppable()
+    {
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            onPageClicked: function(e,originalEvent,type,page){
+                e.stopImmediatePropagation();
+
+                var currentTarget = $(e.currentTarget);
+
+                var pages = currentTarget.bootstrapPaginator("getPages");
+
+                $('#page-clicked-alert-content-stoppable').text("Page item clicked, current page: "+pages.current);
+
+                setTimeout(function(){
+
+                    currentTarget.bootstrapPaginator("show",page);
+
+                    var pages = currentTarget.bootstrapPaginator("getPages");
+
+                    $('#page-clicked-alert-content-stoppable').append("<br/>Page item click finished, current page: "+pages.current);
+
+                },3000);
+
+            }
+        }
+
+        $('#bp-example-page-clicked-event-stoppable').bootstrapPaginator(options);
+    }
+
     function pageChangedEvent()
     {
         var options = {
@@ -1281,6 +1349,7 @@
         pageUrlDemo();
         presenceOfPageDemo();
         pageClickedEvent();
+        pageClickedEventStoppable();
         pageChangedEvent();
         showFunctionDemo();
         getPagesFunctionDemo();

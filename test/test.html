@@ -1071,6 +1071,46 @@
 
         })
 
+        test("test whether page-clicked event is stoppable.",function(){
+
+
+            var page = -1;
+
+            options = {
+                containerClass:"pagination"
+                , currentPage:3
+                , numberOfPages: 3
+                , totalPages:11
+                , pageUrl:function(type,page){
+                    return null;
+                }
+                , onPageClicked:function(e,originalEvent,type,page){
+                    e.stopImmediatePropagation();
+                }
+                , onPageChanged:function(event,oldPage,newPage){
+                    page = newPage;
+
+                }
+
+
+            };
+
+            container.bootstrapPaginator("destroy")
+
+            container.bootstrapPaginator(options);
+
+            var list = container.children().first().children();
+
+            $($(list[6]).children()).first().click();
+
+            var pages = container.bootstrapPaginator("getPages");
+
+            equal(pages.current,"3","current page hasn't changed");
+
+            equal(page,-1,"Page changed event has been fired");
+
+        });
+
         /**
          * Tests the exceptions when the page is out of range
          * */
@@ -1562,13 +1602,13 @@
 
             var itemList = container.children().first();
 
-            equal($(itemList.children()[0]).text(), 1 ," should be 7 types inside");
+            equal($(itemList.children()[0]).text(), 1 ," should be 1 types inside");
 
-            equal($(itemList.children()[2]).text(), 3 ," should be 7 types inside");
+            equal($(itemList.children()[2]).text(), 3 ," should be 3 types inside");
 
-            equal($(itemList.children()[3]).text(), ">" ," should be 7 types inside");
+            equal($(itemList.children()[3]).text(), ">" ," should be > types inside");
 
-            equal($(itemList.children()[4]).text(), ">>" ," should be 7 types inside");
+            equal($(itemList.children()[4]).text(), ">>" ," should be >> types inside");
 
 
         })
