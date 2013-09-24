@@ -49,6 +49,18 @@
 
             this.$element = $(element);
 
+            var version = (options && options.bootstrapMajorVersion) ? options.bootstrapMajorVersion : $.fn.bootstrapPaginator.defaults.bootstrapMajorVersion,
+                id = this.$element.attr("id");
+
+            if (version === 2 && !this.$element.is("div")) {
+
+                throw "in Bootstrap version 2 the pagination must be a div element. Or if you are using Bootstrap pagination 3. Please specify it in bootstrapMajorVersion in the option";
+            } else if (version > 2 && !this.$element.is("ul")) {
+                throw "in Bootstrap version 3 the pagination root item must be an ul element."
+            }
+
+
+
             this.currentPage = 1;
 
             this.lastPage = 1;
@@ -105,6 +117,7 @@
                 this.$element.on("page-changed", this.options.onPageChanged);
             }
 
+            this.$element.bind("page-clicked", this.onPageClicked);
         },
 
 
@@ -119,7 +132,7 @@
 
             this.$element.off("page-changed");
 
-            $.removeData(this.$element, 'bootstrapPaginator');
+            this.$element.removeData('bootstrapPaginator');
 
             this.$element.empty();
 
@@ -205,23 +218,29 @@
 
             this.$element.trigger("page-clicked", [event, type, page]);
 
-            //show the corresponding page and retrieve the newly built item related to the page clicked before for the event return
-            switch (type) {
+        },
 
+        onPageClicked: function (event, originalEvent, type, page) {
+
+            //show the corresponding page and retrieve the newly built item related to the page clicked before for the event return
+
+            var currentTarget = $(event.currentTarget);
+
+            switch (type) {
             case "first":
-                this.showFirst();
+                currentTarget.bootstrapPaginator("showFirst");
                 break;
             case "prev":
-                this.showPrevious();
+                currentTarget.bootstrapPaginator("showPrevious");
                 break;
             case "next":
-                this.showNext();
+                currentTarget.bootstrapPaginator("showNext");
                 break;
             case "last":
-                this.showLast();
+                currentTarget.bootstrapPaginator("showLast");
                 break;
             case "page":
-                this.show(page);
+                currentTarget.bootstrapPaginator("show", page);
                 break;
             }
 
@@ -239,8 +258,8 @@
                 size = this.options.size || "normal",
                 alignment = this.options.alignment || "left",
                 pages = this.getPages(),
-                listContainer = $("<ul></ul>"),
-                listContainerClass =  this.getValueFromOption(this.options.listContainerClass, listContainer),
+                listContainer = this.options.bootstrapMajorVersion === 2 ? $("<ul></ul>") : this.$element,
+                listContainerClass = this.options.bootstrapMajorVersion === 2 ? this.getValueFromOption(this.options.listContainerClass, listContainer) : null,
                 first = null,
                 prev = null,
                 next = null,
@@ -255,39 +274,38 @@
 
             switch (size.toLowerCase()) {
             case "large":
-                this.$element.addClass("pagination-large");
-                break;
             case "small":
-                this.$element.addClass("pagination-small");
-                break;
             case "mini":
-                this.$element.addClass("pagination-mini");
+                this.$element.addClass($.fn.bootstrapPaginator.sizeArray[this.options.bootstrapMajorVersion][size.toLowerCase()]);
                 break;
             default:
                 break;
             }
 
-            switch (alignment.toLowerCase()) {
-
-            case "center":
-                this.$element.addClass("pagination-centered");
-                break;
-            case "right":
-                this.$element.addClass("pagination-right");
-                break;
-            default:
-                break;
-
+            if (this.options.bootstrapMajorVersion === 2) {
+                switch (alignment.toLowerCase()) {
+                case "center":
+                    this.$element.addClass("pagination-centered");
+                    break;
+                case "right":
+                    this.$element.addClass("pagination-right");
+                    break;
+                default:
+                    break;
+                }
             }
+
 
             this.$element.addClass(containerClass);
 
             //empty the outter most container then add the listContainer inside.
             this.$element.empty();
 
-            this.$element.append(listContainer);
+            if (this.options.bootstrapMajorVersion === 2) {
+                this.$element.append(listContainer);
 
-            listContainer.addClass(listContainerClass);
+                listContainer.addClass(listContainerClass);
+            }
 
             //update the page element reference
             this.pageRef = [];
@@ -441,29 +459,21 @@
                 output.push(i);
             }
 
-            if (this.currentPage > 1) {//add the first when the current page leaves the 1st page.
-                output.first = 1;
-            } else {
-                output.first = null;
-            }
+            output.first = 1;//add the first when the current page leaves the 1st page.
 
             if (this.currentPage > 1) {// add the previous when the current page leaves the 1st page
                 output.prev = this.currentPage - 1;
             } else {
-                output.prev = null;
+                output.prev = 1;
             }
 
             if (this.currentPage < totalPages) {// add the next page when the current page doesn't reach the last page
                 output.next = this.currentPage + 1;
             } else {
-                output.next = null;
+                output.next = totalPages;
             }
 
-            if (this.currentPage < totalPages) {// add the last page when the current page doesn't reach the last page
-                output.last = totalPages;
-            } else {
-                output.last = null;
-            }
+            output.last = totalPages;// add the last page when the current page doesn't reach the last page
 
             output.current = this.currentPage;//mark the current page.
 
@@ -514,7 +524,12 @@
                 options = (typeof option !== 'object') ? null : option;
 
             if (!data) {
-                $this.data('bootstrapPaginator', (data = new BootstrapPaginator(this, options)));
+                data = new BootstrapPaginator(this, options);
+
+                $this = $(data.$element);
+
+                $this.data('bootstrapPaginator', data);
+
                 return;
             }
 
@@ -535,10 +550,26 @@
 
     };
 
+    $.fn.bootstrapPaginator.sizeArray = {
+
+        "2": {
+            "large": "pagination-large",
+            "small": "pagination-small",
+            "mini": "pagination-mini"
+        },
+        "3": {
+            "large": "pagination-lg",
+            "small": "pagination-sm",
+            "mini": ""
+        }
+
+    };
+
     $.fn.bootstrapPaginator.defaults = {
         containerClass: "",
         size: "normal",
         alignment: "left",
+        bootstrapMajorVersion: 2,
         listContainerClass: "",
         itemContainerClass: function (type, page, current) {
             return (page === current) ? "active" : "";
@@ -555,7 +586,31 @@
         onPageClicked: null,
         onPageChanged: null,
         useBootstrapTooltip: false,
-        shouldShowPage: true,
+        shouldShowPage: function (type, page, current) {
+
+            var result = true;
+
+            switch (type) {
+            case "first":
+                result = (current !== 1);
+                break;
+            case "prev":
+                result = (current !== 1);
+                break;
+            case "next":
+                result = (current !== this.totalPages);
+                break;
+            case "last":
+                result = (current !== this.totalPages);
+                break;
+            case "page":
+                result = true;
+                break;
+            }
+
+            return result;
+
+        },
         itemTexts: function (type, page, current) {
             switch (type) {
             case "first":

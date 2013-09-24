@@ -1,26 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap Paginator - Bootstrap Pagination jQuery plugin</title>
-    <link rel="stylesheet" href="./css/bootstrap-responsive.css">
-    <link rel="stylesheet" href="./css/bootstrap.css">
-    <link rel="stylesheet" href="./css/documentation.css">
-    <link rel="stylesheet" href="./css/highlight.js/sunburst.css">
-    <META NAME="description" CONTENT="Bootstrap Paginator is a jQuery plugin that simplifies the rendering of Bootstrap Pagination. This javascript library is good for ajax or non-ajax way of using Bootstrap Pagination.">
-    <META NAME="keywords" CONTENT="pagination,paginator,bootstrap,javascript,js,jquery,plugin,library">
-    <script type="text/javascript">
+    <title>Bootstrap Paginator</title>
+    <link rel="stylesheet" href="css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/documentation.css">
+    <link rel="stylesheet" href="css/highlight.js/sunburst.css">
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-35819768-2']);
-        _gaq.push(['_trackPageview']);
-
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-
-    </script>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="100">
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -60,6 +46,7 @@
                         <li><a href="#get-pages">getPages Function</a></li>
                         <li><a href="#set-options">setOptions Function</a></li>
                         <li><a href="#page-clicked-event">Page Clicked Event</a></li>
+                        <li><a href="#page-clicked-event-stoppable">Stopping Page Change within Page Clicked Event</a></li>
                         <li><a href="#page-changed-event">Page Changed Event</a></li>
                     </ul>
                 </li>
@@ -68,11 +55,11 @@
     </div>
 </div>
 <div class="container demo_container">
-    <h1>Bootstrap Paginator v 0.6 </h1>
+    <h1>Bootstrap Paginator v 1.0 </h1>
     <div id="intro">
         <h2>Intro</h2>
         <p>
-            Bootstrap Paginator is a jQuery plugin that simplifies the rendering of Bootstrap Pagination component. It provides methods to automates the update of the pagination status and also some events to notify the status changes within the component.Bootstrap Paginator is able to run on the following browsers: Firefox 5+, Chrome 14+, Safari 5+, Opera 11.6+ and IE 7+.
+            Bootstrap Paginator is a jQuery plugin that simplifies the rendering of Bootstrap Pagination component. It provides methods to automates the update of the pagination status and also some events to notify the status changes within the component. <strong>Bootstrap v3</strong> is now supported.
         </p>
         <div class="row-fluid">
             <div class="span3"></div>
@@ -114,7 +101,7 @@
         <div id="structure-explained">
             <h3>Structure Explained</h3>
             <p>Bootstrap Paginator will have the Bootstrap Pagination Component rendered as shown in the following graph. It has 5 parts. Left most one is the go to first page item. The one next to it is the previous page item. The following numeric page items are of the type page. Next page item comes after it. Last page item will be the last one rendered. Please note that the labels are the types of each component.</p>
-            <div id="bp-docs-structure-illustration" class="text-center"><img src="./img/illustration.png"></div>
+            <div id="bp-docs-structure-illustration" class="text-center"><img src="../img/illustration.png"></div>
         </div>
         <div id="options">
         <h3>Options</h3>
@@ -132,13 +119,19 @@
                     <td class="bp-example-docs-option-attr">size</td>
                     <td>string</td>
                     <td>"normal"</td>
-                    <td>Controls the size of output pagination component. Accepts values: <i class="bp-example-docs-option-value">mini</i>, <i class="bp-example-docs-option-value">small</i>, <i class="bp-example-docs-option-value">normal</i>, <i class="bp-example-docs-option-value">large</i>. Those values maps the pagination sizing class <i class="bp-example-docs-option-value">pagination-mini</i>, <i class="bp-example-docs-option-value">pagination-small</i> and  <i class="bp-example-docs-option-value">pagination-large</i> in Bootstrap Pagination. See the <a href="#size-alignment" title="Click o see the example for size option">Size and alignment example</a> for more detail.</td>
+                    <td>Controls the size of output pagination component. Accepts values: <i class="bp-example-docs-option-value">mini</i>(not supported in Bootstrap v3), <i class="bp-example-docs-option-value">small</i>, <i class="bp-example-docs-option-value">normal</i>, <i class="bp-example-docs-option-value">large</i>. See the <a href="#size-alignment" title="Click o see the example for size option">Size and alignment example</a> for more detail.</td>
+                </tr>
+                <tr>
+                    <td class="bp-example-docs-option-attr">bootstrapMajorVersion</td>
+                    <td>number</td>
+                    <td>2</td>
+                    <td>Specifies the major version number of bootstrap so that the plugin know how to render the pagination</td>
                 </tr>
                 <tr>
                     <td class="bp-example-docs-option-attr">alignment</td>
                     <td>string</td>
                     <td>"left"</td>
-                    <td>Controls the alignment of the pagination component. It accepts values <i class="bp-example-docs-option-value">left</i>, <i class="bp-example-docs-option-value">center</i> and <i class="bp-example-docs-option-value">right</i>. Those values maps to the alignment class <i class="bp-example-docs-option-value">pagination-centered</i> and <i class="bp-example-docs-option-value">pagination-right</i> in Bootstrap Pagination. See the <a href="#size-alignment" title="Click to see the example">Size and alignment example</a> for more information. </td>
+                    <td>Controls the alignment of the pagination component. It accepts values <i class="bp-example-docs-option-value">left</i>, <i class="bp-example-docs-option-value">center</i> and <i class="bp-example-docs-option-value">right</i>. Those values maps to the alignment class <i class="bp-example-docs-option-value">pagination-centered</i> and <i class="bp-example-docs-option-value">pagination-right</i> in Bootstrap Pagination. See the <a href="#size-alignment" title="Click to see the example">Size and alignment example</a> for more information. <strong>Note that this property is not supported when using Bootstrap v3</strong></td>
                 </tr>
                 <tr>
                     <td class="bp-example-docs-option-attr">itemContainerClass</td>
@@ -215,7 +208,7 @@
                     <td class="bp-example-docs-option-attr">onPageClicked</td>
                     <td>function</td>
                     <td></td>
-                    <td>onPageClicked is the handler for the page-clicked event. The signature of the handler is function(<strong><i class="bp-example-docs-option-value">event</i></strong>, <strong><i class="bp-example-docs-option-value">originalEvent</i></strong>, <strong><i class="bp-example-docs-option-value">type</i></strong>,<strong><i class="bp-example-docs-option-value">page</i></strong>). See <a href="#page-clicked-event" title="Click to see the Page Clicked Event Example.">page-clicked Event example</a> for more detail.</td>
+                    <td>onPageClicked is the handler for the page-clicked event. The signature of the handler is function(<strong><i class="bp-example-docs-option-value">event</i></strong>, <strong><i class="bp-example-docs-option-value">originalEvent</i></strong>, <strong><i class="bp-example-docs-option-value">type</i></strong>,<strong><i class="bp-example-docs-option-value">page</i></strong>). If you would like the stop the page change from happening. Simply call event.stopImmediatePropagation() and do the page change yourself if applicable later. See <a href="#page-clicked-event" title="Click to see the Page Clicked Event Example.">page-clicked Event example</a> for more detail. Also the stoppable page change within page click event is demonstrated in See <a href="#page-clicked-event-stoppable" title="Click to see the Stopping Page Change within Page Clicked Event Example.">Stopping Page Change Within Page Clicked Event</a> for more detail.</td>
                 </tr>
                 <tr>
                     <td class="bp-example-docs-option-attr">onPageChanged</td>
@@ -284,7 +277,7 @@
                     <td></td>
                     <td><i>object</i></td>
                     <td>
-                        Function <strong>getPages</strong> returns an array with extra attributes that state the current status of the page. Elements that can be access via numeric index are the items with type: page. Attributes <i class="bp-example-docs-option-value">first</i>, <i class="bp-example-docs-option-value">prev</i>, <i class="bp-example-docs-option-value">next</i>, <i class="bp-example-docs-option-value">last</i> maps to the type of pages that other than the numeric pages. Its value will be set to null if the item is not available. Attribute <i class="bp-example-docs-option-value">current</i> is the current page. Attribute <i class="bp-example-docs-option-value">total</i> and <i class="bp-example-docs-option-value">numberOfPages</i> indicate the total pages and number of numeric pages respectively. See <a href="#get-pages">getPages Function example</a> for more information.
+                        Function <strong>getPages</strong> returns an array with extra attributes that state the current status of the page. Elements that can be access via numeric index are the items with type: page. Attributes <i class="bp-example-docs-option-value">first</i>, <i class="bp-example-docs-option-value">prev</i>, <i class="bp-example-docs-option-value">next</i>, <i class="bp-example-docs-option-value">last</i> maps to the type of pages that other than the numeric pages. getPages function will now no longer set these value to null even if the page at either first or last page. Instead, the values will be either set to first or last page respectively. The control of the visibility of each page item now is handed to the shouldShowPage function. Attribute <i class="bp-example-docs-option-value">current</i> is the current page. Attribute <i class="bp-example-docs-option-value">total</i> and <i class="bp-example-docs-option-value">numberOfPages</i> indicate the total pages and number of numeric pages respectively. See <a href="#get-pages">getPages Function example</a> for more information.
                     </td>
                 </tr>
                 <tr>
@@ -698,6 +691,43 @@
                 </code>
             </pre>
         </div>
+        <div id="page-clicked-event-stoppable">
+            <h3>Stopping the page change within Page Clicked event</h3>
+            <p>If an ajax call is triggered through page click event and you want the page change happen after the content is loaded. You can simply stop the default page change event by calling event.stopImmediatePropagation() and do it later when the document is loaded.</p>
+            <div class="bp-docs-example">
+                <div id="bp-example-page-clicked-event-stoppable"></div>
+                <div id="page-clicked-event-alert-stoppable" class="alert alert-info"><span id="page-clicked-alert-content-stoppable">Click on the pages to trigger the page-clicked event.</span></div>
+            </div>
+            <pre class="javascript">
+                <code>
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            onPageClicked: function(e,originalEvent,type,page){
+
+                e.stopImmediatePropagation();
+
+                var currentTarget = $(e.currentTarget);
+
+                var pages = currentTarget.bootstrapPaginator("getPages");
+
+                $('#alert-content').text("Page item clicked, current page: "+pages.current);
+
+                setTimeout(function(){
+
+                    currentTarget.bootstrapPaginator("show",page);
+
+                    var pages = currentTarget.bootstrapPaginator("getPages");
+
+                    $('#alert-content').append("&lt;br/&gt;Page item click finished, current page: "+pages.current);
+
+                },3000);
+        }
+
+        $('#example').bootstrapPaginator(options);
+                </code>
+            </pre>
+        </div>
         <div id="page-changed-event">
             <h3>page-changed Event</h3>
             <p>The event page-changed will be triggered when the current page is changed to another one. This event only cares about the change between pages. So it's signature doesn't include the type parameter. Instead, the old and new value of the change are given. </p>
@@ -744,10 +774,10 @@
 </div>
 <a href="https://github.com/lyonlai/bootstrap-paginator"><img style="position: absolute; top: 0; right: 0; border: 0;z-index: 99999;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-<script src="./lib/bootstrap.min.js" type="text/javascript"></script>
-<script src="./lib/bootstrap-paginator.min.js"></script>
-<script src="./lib/highlight.pack.js" type="text/javascript"></script>
-<script src="./lib/jquery.history.js" type="text/javascript"></script>
+<script src="lib/bootstrap.min.js" type="text/javascript"></script>
+<script src="src/bootstrap-paginator.js"></script>
+<script src="lib/highlight.pack.js" type="text/javascript"></script>
+<script src="lib/jquery.history.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 
@@ -1038,6 +1068,36 @@
         $('#bp-example-page-clicked-event').bootstrapPaginator(options);
     }
 
+    function pageClickedEventStoppable()
+    {
+        var options = {
+            currentPage: 3,
+            totalPages: 10,
+            onPageClicked: function(e,originalEvent,type,page){
+                e.stopImmediatePropagation();
+
+                var currentTarget = $(e.currentTarget);
+
+                var pages = currentTarget.bootstrapPaginator("getPages");
+
+                $('#page-clicked-alert-content-stoppable').text("Page item clicked, current page: "+pages.current);
+
+                setTimeout(function(){
+
+                    currentTarget.bootstrapPaginator("show",page);
+
+                    var pages = currentTarget.bootstrapPaginator("getPages");
+
+                    $('#page-clicked-alert-content-stoppable').append("<br/>Page item click finished, current page: "+pages.current);
+
+                },3000);
+
+            }
+        }
+
+        $('#bp-example-page-clicked-event-stoppable').bootstrapPaginator(options);
+    }
+
     function pageChangedEvent()
     {
         var options = {
@@ -1295,6 +1355,7 @@
         pageUrlDemo();
         presenceOfPageDemo();
         pageClickedEvent();
+        pageClickedEventStoppable();
         pageChangedEvent();
         showFunctionDemo();
         getPagesFunctionDemo();
@@ -1335,30 +1396,5 @@
     });
 
 </script>
-
-<script type="text/javascript">
-    setTimeout(function(){var a=document.createElement("script");
-        var b=document.getElementsByTagName("script")[0];
-        a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0017/1670.js?"+Math.floor(new Date().getTime()/3600000);
-        a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
-</script>
-<!-- Start of Woopra Code -->
-<script type="text/javascript">
-    function woopraReady(tracker) {
-        tracker.setDomain('bootstrappaginator.org');
-        tracker.setIdleTimeout(1800000);
-        tracker.track();
-        return false;
-    }
-    (function() {
-        var wsc = document.createElement('script');
-        wsc.src = document.location.protocol+'//static.woopra.com/js/woopra.js';
-        wsc.type = 'text/javascript';
-        wsc.async = true;
-        var ssc = document.getElementsByTagName('script')[0];
-        ssc.parentNode.insertBefore(wsc, ssc);
-    })();
-</script>
-<!-- End of Woopra Code -->
 </body>
 </html>
