@@ -55,11 +55,11 @@
     </div>
 </div>
 <div class="container demo_container">
-    <h1>Bootstrap Paginator v 0.6 </h1>
+    <h1>Bootstrap Paginator v 1.0 </h1>
     <div id="intro">
         <h2>Intro</h2>
         <p>
-            Bootstrap Paginator is a jQuery plugin that simplifies the rendering of Bootstrap Pagination component. It provides methods to automates the update of the pagination status and also some events to notify the status changes within the component.
+            Bootstrap Paginator is a jQuery plugin that simplifies the rendering of Bootstrap Pagination component. It provides methods to automates the update of the pagination status and also some events to notify the status changes within the component. <strong>Bootstrap v3</strong> is now supported.
         </p>
         <div class="row-fluid">
             <div class="span3"></div>
@@ -119,13 +119,19 @@
                     <td class="bp-example-docs-option-attr">size</td>
                     <td>string</td>
                     <td>"normal"</td>
-                    <td>Controls the size of output pagination component. Accepts values: <i class="bp-example-docs-option-value">mini</i>, <i class="bp-example-docs-option-value">small</i>, <i class="bp-example-docs-option-value">normal</i>, <i class="bp-example-docs-option-value">large</i>. Those values maps the pagination sizing class <i class="bp-example-docs-option-value">pagination-mini</i>, <i class="bp-example-docs-option-value">pagination-small</i> and  <i class="bp-example-docs-option-value">pagination-large</i> in Bootstrap Pagination. See the <a href="#size-alignment" title="Click o see the example for size option">Size and alignment example</a> for more detail.</td>
+                    <td>Controls the size of output pagination component. Accepts values: <i class="bp-example-docs-option-value">mini</i>(not supported in Bootstrap v3), <i class="bp-example-docs-option-value">small</i>, <i class="bp-example-docs-option-value">normal</i>, <i class="bp-example-docs-option-value">large</i>. See the <a href="#size-alignment" title="Click o see the example for size option">Size and alignment example</a> for more detail.</td>
+                </tr>
+                <tr>
+                    <td class="bp-example-docs-option-attr">bootstrapMajorVersion</td>
+                    <td>number</td>
+                    <td>2</td>
+                    <td>Specifies the major version number of bootstrap so that the plugin know how to render the pagination</td>
                 </tr>
                 <tr>
                     <td class="bp-example-docs-option-attr">alignment</td>
                     <td>string</td>
                     <td>"left"</td>
-                    <td>Controls the alignment of the pagination component. It accepts values <i class="bp-example-docs-option-value">left</i>, <i class="bp-example-docs-option-value">center</i> and <i class="bp-example-docs-option-value">right</i>. Those values maps to the alignment class <i class="bp-example-docs-option-value">pagination-centered</i> and <i class="bp-example-docs-option-value">pagination-right</i> in Bootstrap Pagination. See the <a href="#size-alignment" title="Click to see the example">Size and alignment example</a> for more information. </td>
+                    <td>Controls the alignment of the pagination component. It accepts values <i class="bp-example-docs-option-value">left</i>, <i class="bp-example-docs-option-value">center</i> and <i class="bp-example-docs-option-value">right</i>. Those values maps to the alignment class <i class="bp-example-docs-option-value">pagination-centered</i> and <i class="bp-example-docs-option-value">pagination-right</i> in Bootstrap Pagination. See the <a href="#size-alignment" title="Click to see the example">Size and alignment example</a> for more information. <strong>Note that this property is not supported when using Bootstrap v3</strong></td>
                 </tr>
                 <tr>
                     <td class="bp-example-docs-option-attr">itemContainerClass</td>
@@ -687,7 +693,7 @@
         </div>
         <div id="page-clicked-event-stoppable">
             <h3>Stopping the page change within Page Clicked event</h3>
-            <p>If an ajax call is made and you want the page change happen after the content is loaded. You can simply stop the default page change event by calling event.stopImmediatePropagation() and do it later when the document is loaded.</p>
+            <p>If an ajax call is triggered through page click event and you want the page change happen after the content is loaded. You can simply stop the default page change event by calling event.stopImmediatePropagation() and do it later when the document is loaded.</p>
             <div class="bp-docs-example">
                 <div id="bp-example-page-clicked-event-stoppable"></div>
                 <div id="page-clicked-event-alert-stoppable" class="alert alert-info"><span id="page-clicked-alert-content-stoppable">Click on the pages to trigger the page-clicked event.</span></div>

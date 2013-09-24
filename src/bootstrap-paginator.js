@@ -49,6 +49,18 @@
 
             this.$element = $(element);
 
+            var version = (options && options.bootstrapMajorVersion) ? options.bootstrapMajorVersion : $.fn.bootstrapPaginator.defaults.bootstrapMajorVersion,
+                id = this.$element.attr("id");
+
+            if (version === 2 && !this.$element.is("div")) {
+
+                throw "in Bootstrap version 2 the pagination must be a div element. Or if you are using Bootstrap pagination 3. Please specify it in bootstrapMajorVersion in the option";
+            } else if (version > 2 && !this.$element.is("ul")) {
+                throw "in Bootstrap version 3 the pagination root item must be an ul element."
+            }
+
+
+
             this.currentPage = 1;
 
             this.lastPage = 1;
@@ -228,7 +240,7 @@
                 currentTarget.bootstrapPaginator("showLast");
                 break;
             case "page":
-                currentTarget.bootstrapPaginator("show",page);
+                currentTarget.bootstrapPaginator("show", page);
                 break;
             }
 
@@ -246,8 +258,8 @@
                 size = this.options.size || "normal",
                 alignment = this.options.alignment || "left",
                 pages = this.getPages(),
-                listContainer = $("<ul></ul>"),
-                listContainerClass =  this.getValueFromOption(this.options.listContainerClass, listContainer),
+                listContainer = this.options.bootstrapMajorVersion === 2 ? $("<ul></ul>") : this.$element,
+                listContainerClass = this.options.bootstrapMajorVersion === 2 ? this.getValueFromOption(this.options.listContainerClass, listContainer) : null,
                 first = null,
                 prev = null,
                 next = null,
@@ -262,39 +274,38 @@
 
             switch (size.toLowerCase()) {
             case "large":
-                this.$element.addClass("pagination-large");
-                break;
             case "small":
-                this.$element.addClass("pagination-small");
-                break;
             case "mini":
-                this.$element.addClass("pagination-mini");
+                this.$element.addClass($.fn.bootstrapPaginator.sizeArray[this.options.bootstrapMajorVersion][size.toLowerCase()]);
                 break;
             default:
                 break;
             }
 
-            switch (alignment.toLowerCase()) {
-
-            case "center":
-                this.$element.addClass("pagination-centered");
-                break;
-            case "right":
-                this.$element.addClass("pagination-right");
-                break;
-            default:
-                break;
-
+            if (this.options.bootstrapMajorVersion === 2) {
+                switch (alignment.toLowerCase()) {
+                case "center":
+                    this.$element.addClass("pagination-centered");
+                    break;
+                case "right":
+                    this.$element.addClass("pagination-right");
+                    break;
+                default:
+                    break;
+                }
             }
+
 
             this.$element.addClass(containerClass);
 
             //empty the outter most container then add the listContainer inside.
             this.$element.empty();
 
-            this.$element.append(listContainer);
+            if (this.options.bootstrapMajorVersion === 2) {
+                this.$element.append(listContainer);
 
-            listContainer.addClass(listContainerClass);
+                listContainer.addClass(listContainerClass);
+            }
 
             //update the page element reference
             this.pageRef = [];
@@ -513,7 +524,12 @@
                 options = (typeof option !== 'object') ? null : option;
 
             if (!data) {
-                $this.data('bootstrapPaginator', (data = new BootstrapPaginator(this, options)));
+                data = new BootstrapPaginator(this, options);
+
+                $this = $(data.$element);
+
+                $this.data('bootstrapPaginator', data);
+
                 return;
             }
 
@@ -534,10 +550,26 @@
 
     };
 
+    $.fn.bootstrapPaginator.sizeArray = {
+
+        "2": {
+            "large": "pagination-large",
+            "small": "pagination-small",
+            "mini": "pagination-mini"
+        },
+        "3": {
+            "large": "pagination-lg",
+            "small": "pagination-sm",
+            "mini": ""
+        }
+
+    };
+
     $.fn.bootstrapPaginator.defaults = {
         containerClass: "",
         size: "normal",
         alignment: "left",
+        bootstrapMajorVersion: 2,
         listContainerClass: "",
         itemContainerClass: function (type, page, current) {
             return (page === current) ? "active" : "";

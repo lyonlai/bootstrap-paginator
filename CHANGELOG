@@ -1,6 +1,15 @@
 Change log for Bootstrap Paginator
 ----------------------------------
 
+Version 1.0 23/Sep/2013
+----------------------------------
+
+Support for bootstrap 3.0 has been added.
+
+page-clicked event was linking to page change. Page change now can be stopped by using event.stopImmediatePropagation();
+
+move the page visibility constrains from getPages function to shouldShowPage
+
 Version 0.6.0     13/Jun/2013
 ----------------------------------
 
